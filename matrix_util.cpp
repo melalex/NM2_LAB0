@@ -8,8 +8,8 @@
 
 const int64_t COL_SIZE = 11;
 
-void matrix_util::matrix_pretty_print(const __long_double_t **matrix, int64_t rows, int64_t cols,
-                                      std::ostream &out)
+void matrix_util::pretty_print(const __long_double_t **matrix, int64_t rows, int64_t cols,
+                               std::ostream &out)
 {
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
@@ -19,7 +19,7 @@ void matrix_util::matrix_pretty_print(const __long_double_t **matrix, int64_t ro
     }
 }
 
-__long_double_t **matrix_util::matrix_copy(const __long_double_t **source, int64_t rows, int64_t cols)
+__long_double_t **matrix_util::copy(const __long_double_t **source, int64_t rows, int64_t cols)
 {
     __long_double_t **copy = new __long_double_t*[rows];
 
@@ -28,4 +28,22 @@ __long_double_t **matrix_util::matrix_copy(const __long_double_t **source, int64
     }
 
     return copy;
+}
+
+__long_double_t **matrix_util::add(const __long_double_t **a, const __long_double_t **b,
+                                   int64_t rows, int64_t cols)
+{
+
+}
+
+__long_double_t **matrix_util::subtract(const __long_double_t **a, const __long_double_t **b,
+                                        int64_t rows, int64_t cols)
+{
+
+}
+
+__long_double_t **matrix_util::multiply(const __long_double_t **a, const __long_double_t **b,
+                                        int64_t rows, int64_t cols)
+{
+
 }

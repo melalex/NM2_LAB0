@@ -1,6 +1,6 @@
 #include <iostream>
 #include "target.h"
-#include "schultz_method.h"
+#include "algorithms/schultz_method.h"
 #include "matrix_util.h"
 
 void task1(const __long_double_t **source, int64_t rows, int64_t cols,
@@ -20,7 +20,7 @@ void task1(const __long_double_t **A, int64_t rows, int64_t cols,
     const __long_double_t **answer =
             const_cast<const __long_double_t **>(schultz_method::invertible_matrix(A, rows, cols, out));
 
-    matrix_util::matrix_pretty_print(answer, rows, cols, out);
+    matrix_util::pretty_print(answer, rows, cols, out);
 
     delete[] answer;
 }
