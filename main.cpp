@@ -1,13 +1,15 @@
 #include <iostream>
 #include "constants.h"
 #include "algorithms/schultz_method.h"
+#include "matrix/Matrix.h"
 
 void task1(const float64_t **source, int64_t rows, int64_t cols,
            const float64_t *b, std::ostream &out);
 
 int main() {
-    task1(linear_system_1::A_pointer, linear_system_1::A_ROWS, linear_system_1::A_COLS,
-          linear_system_1::b, std::cout);
+    Matrix matrix(linear_system_1::A_pointer, linear_system_1::A_ROWS, linear_system_1::A_COLS);
+
+    std::cout << matrix;
 
     return 0;
 }

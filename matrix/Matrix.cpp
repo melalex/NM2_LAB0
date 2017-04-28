@@ -5,7 +5,7 @@
 #include <iomanip>
 #include "Matrix.h"
 
-Matrix::Matrix(float64_t **matrix, int64_t rows, int64_t cols) :
+Matrix::Matrix(const float64_t **matrix, int64_t rows, int64_t cols) :
         _matrix(clone(matrix, rows, cols)), _rows(rows), _cols(cols) {}
 
 Matrix::Matrix(Matrix &other) : Matrix(other._matrix, other._rows, other._cols) {
@@ -54,19 +54,24 @@ Matrix::Matrix(int64_t rows, int64_t cols) : _rows(rows), _cols(cols) {
 
     for (int i = 0; i < rows; ++i) {
         matrix[i] = new float64_t[cols];
+        for (int j = 0; j < cols; j++) {
+            matrix[i][j] = 0;
+        }
     }
 
     _matrix = matrix;
 }
 
-template<int64_t row, int64_t col>
-Matrix::Matrix(float64_t matrix[row][col]) : _rows(row), _cols(col) {
-    _matrix = new float64_t *[row];
+template<int64_t rows, int64_t cols>
+Matrix Matrix::create(const float64_t matrix[rows][cols]) {
+    float64_t **copy = new float64_t *[rows];
 
-    for (int i = 0; i < row; i++) {
-        _matrix[i] = matrix[i];
+    for (int i = 0; i < cols; i++) {
+        memcpy(&copy[i], &matrix[i], (size_t) (cols * sizeof(float64_t)));
     }
-}
+
+    return Matrix(copy, rows, cols);
+};
 
 Matrix Matrix::operator*(const Matrix &other) const {
     return Matrix(nullptr, 0, 0);
@@ -108,7 +113,16 @@ Matrix Matrix::transpose() const {
 }
 
 Matrix Matrix::identity_matrix(int64_t size) {
-    return Matrix(nullptr, 0, 0);
+    float64_t **matrix = new float64_t *[size];
+
+    for (int i = 0; i < size; i++) {
+        matrix[i] = new float64_t[size];
+        for (int j = 0; j < size; j++) {
+            matrix[i][j] = i == j ? 1 : 0;
+        }
+    }
+
+    return Matrix(matrix, size, size);
 }
 
 float64_t Matrix::norm() const {
@@ -124,6 +138,17 @@ float64_t **Matrix::clone(float64_t **source, int64_t rows, int64_t cols) {
 
     return copy;
 }
+
+float64_t **Matrix::clone(const float64_t **source, int64_t rows, int64_t cols) {
+    float64_t **copy = new float64_t *[rows];
+
+    for (int i = 0; i < cols; i++) {
+        memcpy(&copy[i], &source[i], (size_t) (cols * sizeof(float64_t)));
+    }
+
+    return copy;
+}
+
 
 void Matrix::delete_matrix() {
     for (int i = 0; i < _rows; i++) {

@@ -6,10 +6,11 @@
 #define LAB0_SCHULTZ_METHOD_H
 
 #include <iostream>
+#include "../constants.h"
 
 namespace schultz_method {
 
-    __long_double_t **invertible_matrix(const __long_double_t **source, int64_t rows, int64_t cols,
+    float64_t **invertible_matrix(const float64_t **source, int64_t rows, int64_t cols,
                                         std::ostream &out);
 
 }

@@ -3,12 +3,11 @@
 //
 
 #include "schultz_method.h"
-#include "../matrix_util.h"
 
-__long_double_t **schultz_method::invertible_matrix(const __long_double_t **matrix, int64_t rows, int64_t cols,
+float64_t **schultz_method::invertible_matrix(const float64_t **matrix, int64_t rows, int64_t cols,
                                                     std::ostream &out)
 {
-    __long_double_t **result = matrix_util::copy(matrix, rows, cols);
 
-    return result;
+
+    return nullptr;
 }

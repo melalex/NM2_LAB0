@@ -18,17 +18,19 @@ private:
     float64_t **_matrix;
 
     static float64_t **clone(float64_t **matrix, int64_t rows, int64_t cols);
+    static float64_t **clone(const float64_t **matrix, int64_t rows, int64_t cols);
 
     void delete_matrix();
+
 public:
     static Matrix identity_matrix(int64_t size);
 
-    Matrix(float64_t **matrix, int64_t rows, int64_t cols);
+    template<int64_t row, int64_t col>
+    static Matrix create(const float64_t matrix[row][col]);
+
+    Matrix(const float64_t **matrix, int64_t rows, int64_t cols);
 
     Matrix(int64_t rows, int64_t cols);
-
-    template<int64_t row, int64_t col>
-    Matrix(const float64_t matrix[row][col]);
 
     Matrix(Matrix &other);
 
