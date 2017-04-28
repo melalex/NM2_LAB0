@@ -2,13 +2,14 @@
 // Created by melalex on 4/27/17.
 //
 
-#ifndef LAB0_TARGET_H
-#define LAB0_TARGET_H
+#ifndef LAB0_CONSTANTS_H
+#define LAB0_CONSTANTS_H
 
-#include <tar.h>
+typedef long double float64_t;
+typedef long long int64_t;
 
 namespace linear_system_1 {
-    const __long_double_t A[9][9] = {
+    const float64_t A[9][9] = {
             { 57, -69,   3,  81, -11,  17, -50,  80,  14},
             {  3,  26,  47,  87,  43, -22,  23,  14,   4},
             {-89,  53,  -8,  95, -93,  70,  77, -71,   2},
@@ -21,12 +22,12 @@ namespace linear_system_1 {
     };
 
     const int64_t A_ROWS = sizeof A / sizeof A[0];
-    const int64_t A_COLS = sizeof A[0] / sizeof(__long_double_t);
+    const int64_t A_COLS = sizeof A[0] / sizeof(float64_t);
 
-    const __long_double_t *A_rows[9] = {A[0], A[1], A[2], A[3], A[4], A[5], A[6], A[7], A[8]};
-    const __long_double_t **A_pointer = A_rows;
+    const float64_t *A_rows[9] = {A[0], A[1], A[2], A[3], A[4], A[5], A[6], A[7], A[8]};
+    const float64_t **A_pointer = A_rows;
 
-    const __long_double_t b[9] = {10, -21, -94, 93, 87, 68, -100, 37, 55};
+    const float64_t b[9] = {10, -21, -94, 93, 87, 68, -100, 37, 55};
 }
 
-#endif //LAB0_TARGET_H
+#endif //LAB0_CONSTANTS_H

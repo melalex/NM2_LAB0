@@ -5,33 +5,44 @@
 #ifndef LAB0_MATRIX_H
 #define LAB0_MATRIX_H
 
-#include <bits/types.h>
 #include <iostream>
+#include "../constants.h"
+
 
 class Matrix {
 private:
-    __int64_t _rows;
-    __int64_t _cols;
-    __long_double_t **_matrix;
+    static const int64_t COL_SIZE = 11;
+
+    int64_t _rows;
+    int64_t _cols;
+    float64_t **_matrix;
+
+    static float64_t **clone(float64_t **matrix, int64_t rows, int64_t cols);
+
+    void delete_matrix();
 public:
-    Matrix(const __long_double_t **matrix, __int64_t rows, __int64_t cols);
+    static Matrix identity_matrix(int64_t size);
 
-    template<__int64_t row, __int64_t col>
-    Matrix(const __long_double_t[row][col]);
+    Matrix(float64_t **matrix, int64_t rows, int64_t cols);
 
-    Matrix(const Matrix &other);
+    Matrix(int64_t rows, int64_t cols);
+
+    template<int64_t row, int64_t col>
+    Matrix(const float64_t matrix[row][col]);
+
+    Matrix(Matrix &other);
 
     ~Matrix();
 
     Matrix(Matrix &&other);
 
-    __int64_t get_rows() const;
+    int64_t get_rows() const;
 
-    __int64_t get_cols() const;
+    int64_t get_cols() const;
 
     Matrix transpose() const;
 
-    // TODO: add norm
+    float64_t norm() const;
 
     Matrix &operator=(const Matrix &other);
 
@@ -43,10 +54,9 @@ public:
 
     Matrix operator-(const Matrix &other) const;
 
-    __long_double_t *operator[](const int index);
+    float64_t *operator[](const int index) const;
 
     friend std::ostream &operator<<(std::ostream &os, const Matrix &dt);
 };
-
 
 #endif //LAB0_MATRIX_H
