@@ -7,9 +7,9 @@
 //           const float64_t *b, std::ostream &out);
 
 int main() {
-    Matrix matrix(linear_system_1::A_pointer, linear_system_1::A_ROWS, linear_system_1::A_COLS);
+    Matrix matrix(linear_system_1::A_POINTER, linear_system_1::A_ROWS, linear_system_1::A_COLS);
 
-    std::cout << matrix;
+    std::cout << matrix.transpose();
 
     return 0;
 }

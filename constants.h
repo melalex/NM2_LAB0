@@ -20,11 +20,11 @@ namespace linear_system_1 {
             { 6,   99, -76,  38,  25, -11,  31, -72,  34}
     };
 
-    const int64_t A_ROWS = sizeof A / sizeof A[0];
-    const int64_t A_COLS = sizeof A[0] / sizeof(float64_t);
+    const u_int64_t A_ROWS = sizeof A / sizeof A[0];
+    const u_int64_t A_COLS = sizeof A[0] / sizeof(float64_t);
 
-    const float64_t *A_rows[9] = {A[0], A[1], A[2], A[3], A[4], A[5], A[6], A[7], A[8]};
-    const float64_t **A_pointer = A_rows;
+    const float64_t *A_BUFF[9] = {A[0], A[1], A[2], A[3], A[4], A[5], A[6], A[7], A[8]};
+    const float64_t **A_POINTER = A_BUFF;
 
     const float64_t b[9] = {10, -21, -94, 93, 87, 68, -100, 37, 55};
 }
