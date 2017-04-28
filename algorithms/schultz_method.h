@@ -6,7 +6,7 @@
 #define LAB0_SCHULTZ_METHOD_H
 
 #include <iostream>
-#include "../constants.h"
+#include "../types.h"
 
 namespace schultz_method {
 

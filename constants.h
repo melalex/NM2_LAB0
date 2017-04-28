@@ -5,7 +5,7 @@
 #ifndef LAB0_CONSTANTS_H
 #define LAB0_CONSTANTS_H
 
-typedef long double float64_t;
+#include "types.h"
 
 namespace linear_system_1 {
     const float64_t A[9][9] = {

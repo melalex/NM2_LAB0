@@ -6,11 +6,12 @@
 #define LAB0_MATRIX_H
 
 #include <iostream>
-#include "../constants.h"
-
+#include "../types.h"
 
 class Matrix {
 private:
+    Matrix(float64_t **matrix, int64_t rows, int64_t cols);
+
     static const int64_t COL_SIZE = 11;
 
     int64_t _rows;

@@ -3,13 +3,17 @@
 //
 
 #include <iomanip>
+#include <cstring>
 #include "Matrix.h"
 
 Matrix::Matrix(const float64_t **matrix, int64_t rows, int64_t cols) :
         _matrix(clone(matrix, rows, cols)), _rows(rows), _cols(cols) {}
 
+Matrix::Matrix(float64_t **matrix, int64_t rows, int64_t cols) :
+        _matrix(clone(matrix, rows, cols)), _rows(rows), _cols(cols) {}
+
 Matrix::Matrix(Matrix &other) : Matrix(other._matrix, other._rows, other._cols) {
-    Matrix(other._matrix, other._rows, other._cols);
+
 }
 
 Matrix::~Matrix() {
@@ -74,21 +78,21 @@ Matrix Matrix::create(const float64_t matrix[rows][cols]) {
 };
 
 Matrix Matrix::operator*(const Matrix &other) const {
-    return Matrix(nullptr, 0, 0);
+    return Matrix(0, 0);
 }
 
 Matrix Matrix::operator+(const Matrix &other) const {
-    return Matrix(nullptr, 0, 0);
+    return Matrix(0, 0);;
 }
 
 Matrix Matrix::operator-(const Matrix &other) const {
-    return Matrix(nullptr, 0, 0);
+    return Matrix(0, 0);;
 }
 
 std::ostream &operator<<(std::ostream &os, const Matrix &dt) {
-    for (int i = 0; i < _rows; i++) {
-        for (int j = 0; j < _cols; j++) {
-            os << std::setw(COL_SIZE) << _matrix[i][j];
+    for (int i = 0; i < dt._rows; i++) {
+        for (int j = 0; j < dt._cols; j++) {
+            os << std::setw(Matrix::COL_SIZE) << dt._matrix[i][j];
         }
         os << std::endl;
     }
@@ -109,7 +113,7 @@ int64_t Matrix::get_cols() const {
 }
 
 Matrix Matrix::transpose() const {
-    return Matrix(nullptr, 0, 0);
+    return Matrix(0, 0);;
 }
 
 Matrix Matrix::identity_matrix(int64_t size) {
