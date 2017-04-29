@@ -188,7 +188,7 @@ Matrix Matrix::identity_matrix(u_int64_t size) {
     return _create_without_copy(matrix, size, size);
 }
 
-float64_t Matrix::evklid_norm() const {
+float64_t Matrix::norm() const {
     float64_t result = 0;
 
     for (int i = 0; i < _rows; i++) {

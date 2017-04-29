@@ -50,7 +50,7 @@ public:
 
     Matrix transpose() const;
 
-    float64_t evklid_norm() const;
+    float64_t norm() const;
 
     Matrix round(u_int64_t digits) const;
 

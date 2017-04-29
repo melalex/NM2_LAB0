@@ -19,7 +19,7 @@ int main() {
 
 void task_1() {
     Matrix a_matrix(linear_system_1::A_POINTER, linear_system_1::A_ROWS, linear_system_1::A_COLS);
-    Matrix b_vector(linear_system_1::b, linear_system_1::A_ROWS);
+    Matrix b_vector(linear_system_1::B, linear_system_1::A_ROWS);
 
     Matrix inverted_a = schultz_method::invertible_matrix(a_matrix, linear_system_1::eps, std::cout);
 
