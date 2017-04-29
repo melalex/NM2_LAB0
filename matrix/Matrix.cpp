@@ -104,6 +104,10 @@ Matrix Matrix::operator*(float64_t multiplier) const {
     return _create_without_copy(matrix, _rows, _cols);
 }
 
+Matrix Matrix::operator/(float64_t divider) const {
+    return *this * (1 / divider);
+}
+
 Matrix Matrix::operator+(const Matrix &other) const {
     if (other._cols != _cols || other._rows != _rows) {
         throw std::invalid_argument("Matrices has different dimensions");
@@ -184,26 +188,6 @@ Matrix Matrix::identity_matrix(u_int64_t size) {
     return _create_without_copy(matrix, size, size);
 }
 
-Matrix Matrix::pow(u_int64_t pow) const {
-    if (_cols != _rows) {
-        throw std::logic_error("Matrix should be square");
-    }
-
-    float64_t **matrix = _clone(_matrix, _rows, _cols);
-
-    for (int p = 0; p < pow; p++) {
-        for (int i = 0; i < _rows; i++) {
-            for (int j = 0; j < _cols; j++) {
-                for (int r = 0; r < _cols; r++) {
-                    matrix[i][j] += matrix[i][r] * _matrix[r][j];
-                }
-            }
-        }
-    }
-
-    return _create_without_copy(matrix, _rows, _cols);
-}
-
 float64_t Matrix::evklid_norm() const {
     float64_t result = 0;
 
@@ -216,11 +200,26 @@ float64_t Matrix::evklid_norm() const {
     return sqrt(result);
 }
 
+
+Matrix Matrix::round(u_int64_t digits) const {
+    float64_t **rounded = _empty_matrix(_cols, _rows);
+    float64_t eps = std::pow(10, digits);
+
+    for (int i = 0; i < _rows; i++) {
+        for (int j = 0; j < _cols; j++) {
+            rounded[i][j] = std::round(_matrix[i][j] * eps) / eps;
+        }
+    }
+
+    return _create_without_copy(rounded, _cols, _rows);
+}
+
 float64_t **Matrix::_clone(float64_t **source, u_int64_t rows, u_int64_t cols) {
     float64_t **copy = new float64_t *[rows];
 
     for (int i = 0; i < cols; i++) {
-        memcpy(&copy[i], &source[i], (size_t) (cols * sizeof(float64_t)));
+        copy[i] = new float64_t[cols];
+        std::copy(source[i], source[i] + cols, copy[i]);
     }
 
     return copy;

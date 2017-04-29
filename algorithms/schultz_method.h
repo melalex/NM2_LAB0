@@ -11,7 +11,7 @@
 
 namespace schultz_method {
 
-    Matrix *invertible_matrix(const Matrix &source, float64_t e, std::ostream &out);
+    Matrix invertible_matrix(const Matrix &source, float64_t eps, std::ostream &out);
 
 }
 #endif //LAB0_SCHULTZ_METHOD_H

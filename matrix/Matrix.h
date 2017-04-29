@@ -14,7 +14,7 @@ private:
 
     Matrix(float64_t **matrix, u_int64_t rows, u_int64_t cols);
 
-    static const u_int64_t COL_SIZE = 11;
+    static const u_int64_t COL_SIZE = 15;
 
     u_int64_t _rows;
     u_int64_t _cols;
@@ -50,9 +50,9 @@ public:
 
     Matrix transpose() const;
 
-    Matrix pow(u_int64_t pow) const;
-
     float64_t evklid_norm() const;
+
+    Matrix round(u_int64_t digits) const;
 
     Matrix &operator=(const Matrix &other);
 
@@ -61,6 +61,8 @@ public:
     Matrix operator*(const Matrix &other) const;
 
     Matrix operator*(float64_t multiplier) const;
+
+    Matrix operator/(float64_t divider) const;
 
     Matrix operator+(const Matrix &other) const;
 
