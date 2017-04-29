@@ -9,7 +9,10 @@
 int main() {
     Matrix matrix(linear_system_1::A_POINTER, linear_system_1::A_ROWS, linear_system_1::A_COLS);
 
-    std::cout << matrix.transpose();
+    Matrix transposed = matrix.transpose();
+    Matrix mult = matrix * transposed;
+
+    std::cout << mult;
 
     return 0;
 }

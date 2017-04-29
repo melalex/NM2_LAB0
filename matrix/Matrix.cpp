@@ -82,7 +82,7 @@ Matrix Matrix::operator*(const Matrix &other) const {
     float64_t **matrix = _empty_matrix(_rows, other._cols);
 
     for (int i = 0; i < _rows; i++) {
-        for (int j = 0; j < _cols; j++) {
+        for (int j = 0; j < other._cols; j++) {
             for (int r = 0; r < _cols; r++) {
                 matrix[i][j] += _matrix[i][r] * other._matrix[r][j];
             }
@@ -168,7 +168,7 @@ Matrix Matrix::transpose() const {
         }
     }
 
-    return _create_without_copy(_matrix, _cols, _rows);
+    return _create_without_copy(transposed, _cols, _rows);
 }
 
 Matrix Matrix::identity_matrix(u_int64_t size) {
@@ -229,8 +229,9 @@ float64_t **Matrix::_clone(float64_t **source, u_int64_t rows, u_int64_t cols) {
 float64_t **Matrix::_clone(const float64_t **source, u_int64_t rows, u_int64_t cols) {
     float64_t **copy = new float64_t *[rows];
 
-    for (int i = 0; i < cols; i++) {
-        memcpy(&copy[i], &source[i], (size_t) (cols * sizeof(float64_t)));
+    for (int i = 0; i < rows; i++) {
+        copy[i] = new float64_t[cols];
+        std::copy(source[i], source[i] + cols, copy[i]);
     }
 
     return copy;

@@ -7,11 +7,11 @@
 
 #include <iostream>
 #include "../types.h"
+#include "../matrix/Matrix.h"
 
 namespace schultz_method {
 
-    float64_t **invertible_matrix(const float64_t **source, int64_t rows, int64_t cols,
-                                        std::ostream &out);
+    Matrix *invertible_matrix(const Matrix &source, float64_t e, std::ostream &out);
 
 }
 #endif //LAB0_SCHULTZ_METHOD_H
