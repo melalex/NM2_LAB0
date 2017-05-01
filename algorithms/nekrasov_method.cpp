@@ -3,6 +3,9 @@
 //
 
 #include "nekrasov_method.h"
+#include "schultz_method.h"
+
+using namespace schultz_method;
 
 inline float64_t sum(int i, int begin, int end, const Matrix &A, const Matrix &X) {
     float64_t result = 0;
@@ -18,6 +21,40 @@ inline bool condition(Matrix x, Matrix prev_x, float64_t eps) {
     return (x - prev_x).max() >= eps;
 }
 
+inline Matrix get_left(const Matrix &matrix) {
+    Matrix L(matrix.get_rows(), matrix.get_cols());
+
+    for (int i = 0; i < L.get_rows(); i++) {
+        for (int j = 0; j < i; j++) {
+            L[i][j] = matrix[i][j];
+        }
+    }
+
+    return L;
+}
+
+inline Matrix get_right(const Matrix &matrix) {
+    Matrix R(matrix.get_rows(), matrix.get_cols());
+
+    for (int i = 0; i < R.get_rows(); i++) {
+        for (int j = i + 1; j < R.get_cols(); j++) {
+            R[i][j] = matrix[i][j];
+        }
+    }
+
+    return R;
+}
+
+inline Matrix get_diagonal(const Matrix &matrix) {
+    Matrix D(matrix.get_rows(), matrix.get_cols());
+
+    for (int i = 0; i < D.get_rows(); i++) {
+        D[i][i] = matrix[i][i];
+    }
+
+    return D;
+}
+
 Matrix nekrasov_method::solve(const Matrix &A, const Matrix &b, float64_t eps, std::ostream &out) {
     out << "A is:" << std::endl;
     out << A << std::endl;
@@ -26,19 +63,16 @@ Matrix nekrasov_method::solve(const Matrix &A, const Matrix &b, float64_t eps, s
 
     u_int64_t n = b.get_rows();
 
+    Matrix L = get_left(A);
+    Matrix R = get_right(A);
+    Matrix D = get_diagonal(A);
+    Matrix T = invertible_matrix(L + D, eps, out, false);
     Matrix X(n, 1);
-    Matrix prev_X;
+    Matrix prev_X(n, 1);
 
-    float64_t sum_1;
-    float64_t sum_2;
+    for (int k = 1; k < 10; k++) {
+        X = (T * R * prev_X) * (-1) + T * b;
 
-    for (int k = 1; k == 1 || condition(X, prev_X, eps) && k < 10; k++) {
-        for (int i = 0; i < n; i++) {
-            sum_1 = sum(i, 0, i - 1, A, X);
-            sum_2 = sum(i, i + 1, n - 1, A, prev_X);
-
-            X[i][0] = (-1 / A[i][i]) * (sum_1 + sum_2 - b[i][0]);
-        }
         out << k << " X is:" << std::endl;
         out << X << std::endl;
         prev_X = X;
