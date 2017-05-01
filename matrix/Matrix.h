@@ -10,8 +10,6 @@
 
 class Matrix {
 private:
-    Matrix();
-
     Matrix(float64_t **matrix, u_int64_t rows, u_int64_t cols);
 
     static const u_int64_t COL_SIZE = 15;
@@ -30,6 +28,8 @@ private:
 
 public:
     static Matrix identity_matrix(u_int64_t size);
+
+    Matrix();
 
     Matrix(const float64_t **matrix, u_int64_t rows, u_int64_t cols);
 
@@ -51,6 +51,8 @@ public:
     Matrix transpose() const;
 
     float64_t norm() const;
+
+    float64_t max() const;
 
     Matrix round(u_int64_t digits) const;
 

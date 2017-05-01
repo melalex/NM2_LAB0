@@ -8,6 +8,21 @@
 #include "types.h"
 
 namespace linear_system_1 {
+    const float64_t TEST_A[4][4] = {
+            {1,  5,  3, -4},
+            {3,  1, -2,  0},
+            {5, -7, 10,  0},
+            {0,  3,  0, -5},
+    };
+
+    const u_int64_t TEST_ROWS = sizeof TEST_A / sizeof TEST_A[0];
+    const u_int64_t TEST_COLS = sizeof TEST_A[0] / sizeof(float64_t);
+
+    const float64_t *TEST_POINTER[4] = {TEST_A[0], TEST_A[1], TEST_A[2], TEST_A[3]};
+
+    const float64_t TEST_B[4] = {20, 9, -9, 1};
+
+
     const float64_t A[9][9] = {
             { 57, -69,   3,  81, -11,  17, -50,  80,  14},
             {  3,  26,  47,  87,  43, -22,  23,  14,   4},

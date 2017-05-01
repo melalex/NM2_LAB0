@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <cstring>
 #include <math.h>
+#include <limits>
 #include "Matrix.h"
 
 Matrix::Matrix() : _matrix(nullptr), _cols(0), _rows(0) {}
@@ -201,6 +202,20 @@ float64_t Matrix::norm() const {
 }
 
 
+float64_t Matrix::max() const {
+    float64_t max = std::numeric_limits<float64_t>::min();
+
+    for (int i = 0; i <_rows; i++) {
+        for (int j = 0; j < _cols; j++) {
+            if (_matrix[i][j] > max) {
+                max = _matrix[i][j];
+            }
+        }
+    }
+
+    return max;
+}
+
 Matrix Matrix::round(u_int64_t digits) const {
     float64_t **rounded = _empty_matrix(_cols, _rows);
     float64_t eps = std::pow(10, digits);
@@ -217,7 +232,7 @@ Matrix Matrix::round(u_int64_t digits) const {
 float64_t **Matrix::_clone(float64_t **source, u_int64_t rows, u_int64_t cols) {
     float64_t **copy = new float64_t *[rows];
 
-    for (int i = 0; i < cols; i++) {
+    for (int i = 0; i < rows; i++) {
         copy[i] = new float64_t[cols];
         std::copy(source[i], source[i] + cols, copy[i]);
     }
@@ -238,10 +253,12 @@ float64_t **Matrix::_clone(const float64_t **source, u_int64_t rows, u_int64_t c
 
 
 void Matrix::_delete_matrix() {
-    for (int i = 0; i < _rows; i++) {
-        delete[] _matrix[i];
+    if (_matrix) {
+        for (int i = 0; i < _rows; i++) {
+            delete[] _matrix[i];
+        }
+        delete[] _matrix;
     }
-    delete[] _matrix;
 }
 
 float64_t **Matrix::_empty_matrix(u_int64_t rows, u_int64_t cols) {
